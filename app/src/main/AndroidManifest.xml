@@ -1,0 +1,24 @@
+<manifest package="ru.sinjvf.emotions"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:name=".presentation.EmotionTrackerApp"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@drawable/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/EmotionTracker.NoActionBar">
+        <activity
+            android:name="ru.sinjvf.emotions.presentation.MainActivity"
+            android:exported="true"
+            android:theme="@style/EmotionTracker.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
