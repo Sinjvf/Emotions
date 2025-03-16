@@ -151,7 +151,7 @@ fun EventRow(
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.End
-                        ) {/*
+                        ) {
                             Button(
                                 onClick = {
                                     showDialog = false
@@ -160,7 +160,7 @@ fun EventRow(
                             ) {
                                 Text("Редактировать")
                             }
-                            Spacer(modifier = Modifier.width(8.dp))*/
+                            Spacer(modifier = Modifier.width(8.dp))
                             Button(
                                 onClick = {
                                     showDialog = false

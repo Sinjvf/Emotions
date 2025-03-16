@@ -39,11 +39,12 @@ fun AddUpdateEventScreen(
     event: Event? = null,
 ) {
     val emotionMap = emotions.associateBy { it.id }
-
+    val emotion = event?.let { emotionMap[event.emotionId] }
     var selectedDate by remember { mutableStateOf(event?.timestamp ?: System.currentTimeMillis()) }
-    var selectedEmotion by remember { mutableStateOf<Emotion?>(emotionMap[event?.emotionId ?: 0]) }
+    var selectedEmotion by remember { mutableStateOf<Emotion?>(emotion) }
     var selectedStrength by remember { mutableStateOf(event?.strength ?: 0) }
     var description by remember { mutableStateOf(TextFieldValue(event?.description ?: "")) }
+  //  selectedEmotion = emotion
 
     Column(
         modifier = Modifier

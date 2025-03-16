@@ -5,12 +5,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import ru.sinjvf.emotions.data.entries.Event
 import ru.sinjvf.emotions.presentation.screens.home.AddUpdateEventScreen
 
 @Composable
 fun UpdateEventScreen(
     viewModel: EventsViewModel = hiltViewModel(),
-    // event: Event,
+    event: Event,
     goAddEmotions: () -> Unit,
     goEvents: () -> Unit
 
@@ -23,13 +24,13 @@ fun UpdateEventScreen(
 
     AddUpdateEventScreen(
         doneButtonText = "Редактировать событие",
-        action = { event ->
-            viewModel.updateEvent(event)
+        action = { actionEvent ->
+            viewModel.updateEvent(actionEvent)
             goEvents()
         },
         emotions = emotions,
         goAddEmotions = goAddEmotions,
-        event = null//event
+        event = event
     )
 }
 

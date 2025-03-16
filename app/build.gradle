@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -79,6 +80,8 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.46.1"
     kapt "com.google.dagger:hilt-compiler:2.46.1"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     // Testing dependencies
     testImplementation 'junit:junit:4.13.2'
