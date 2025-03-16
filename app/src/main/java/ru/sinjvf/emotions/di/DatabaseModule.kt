@@ -10,6 +10,8 @@ import ru.sinjvf.emotions.data.AppDatabase
 import ru.sinjvf.emotions.data.dao.EmotionCharacteristicDao
 import ru.sinjvf.emotions.data.dao.EmotionDao
 import ru.sinjvf.emotions.data.dao.EventDao
+import ru.sinjvf.emotions.domain.ExportPdf
+import ru.sinjvf.emotions.domain.ExportTxt
 import javax.inject.Singleton
 
 @Module
@@ -32,6 +34,18 @@ object DatabaseModule {
     @Singleton
     fun provideEmotionsCharDao(database: AppDatabase): EmotionCharacteristicDao {
         return database.emotionCharacteristicDao()
+    }
+
+    @Provides
+    @Singleton
+    fun exportPdf(): ExportPdf {
+        return ExportPdf()
+    }
+
+    @Provides
+    @Singleton
+    fun exportTxt(): ExportTxt {
+        return ExportTxt()
     }
 
     @Provides

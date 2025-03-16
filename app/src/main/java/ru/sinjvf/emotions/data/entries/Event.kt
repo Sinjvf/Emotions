@@ -22,7 +22,9 @@ data class Event(
     val timestamp: Long, // Таймстемп даты события
     val emotionId: Long, // Ссылка на эмоцию
     val strength: Int, // Сила эмоции (например, от 1 до 10)
-    val description: String // Описание события
+    val description: String, // Описание события
+    val thought: String, // Новое поле: мысль
+    val sensation: String, // Новое поле: ощущения
 ) {
     fun toJson(): String {
         return Gson().toJson(this)

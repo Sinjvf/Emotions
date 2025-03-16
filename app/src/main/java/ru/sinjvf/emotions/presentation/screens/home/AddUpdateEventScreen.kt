@@ -44,6 +44,7 @@ fun AddUpdateEventScreen(
     var selectedEmotion by remember { mutableStateOf<Emotion?>(emotion) }
     var selectedStrength by remember { mutableStateOf(event?.strength ?: 0) }
     var description by remember { mutableStateOf(TextFieldValue(event?.description ?: "")) }
+    var thought by remember { mutableStateOf(TextFieldValue(event?.thought ?: "")) }
   //  selectedEmotion = emotion
 
     Column(
@@ -99,6 +100,22 @@ fun AddUpdateEventScreen(
         )
 
         Spacer(modifier = Modifier.height(16.dp))
+        OutlinedTextField(
+            value = thought,
+            onValueChange = { value -> thought = value },
+            label = { Text("Мысль") },
+            modifier = Modifier.fillMaxWidth(),
+            maxLines = 4,
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    // Закрываем клавиатуру при нажатии на Done
+                    keyboardController?.hide()
+                }
+            )
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Кнопка сохранения
         Button(
@@ -109,6 +126,8 @@ fun AddUpdateEventScreen(
                         emotionId = selectedEmotion!!.id,
                         strength = selectedStrength,
                         description = description.text,
+                        thought = thought.text,
+                        sensation = "",
                         id = event?.id ?: 0
                     )
                     action(newEvent)
@@ -116,6 +135,7 @@ fun AddUpdateEventScreen(
                     selectedEmotion = null // Очищаем выбранную эмоцию
                     selectedStrength = 0 // Очищаем силу эмоции
                     description = TextFieldValue("") // Очищаем описание
+                    thought = TextFieldValue("")
                 }
             },
             modifier = Modifier.fillMaxWidth(),

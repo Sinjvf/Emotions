@@ -72,7 +72,9 @@ suspend fun importEventsFromString(
                         timestamp = currentDate,
                         emotionId = emotion.id,
                         strength = strength,
-                        description = description
+                        description = description,
+                        thought = "",
+                        sensation = ""
                     )
                     eventDao.get().insert(event)
                 }

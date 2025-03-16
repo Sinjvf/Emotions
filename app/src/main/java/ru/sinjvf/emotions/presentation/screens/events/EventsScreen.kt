@@ -59,7 +59,7 @@ fun EventsScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(4.dp)
     ) {
         groupedEvents.forEach { (date, eventsForDay) ->
             item {
@@ -105,14 +105,14 @@ fun EventRow(
         modifier = Modifier
             .fillMaxWidth()
             .background(backgroundColor.copy(alpha = alpha))
-            .padding(8.dp)
+            .padding(2.dp)
             .clickable { showDialog = true }
     ) {
         Text(
             text = emotion?.name ?: "Неизвестно",
             modifier = Modifier
                 .padding(4.dp)
-                .width(120.dp)
+                .width(90.dp)
         )
         Text(
             text = if (event.strength == 0) "<1" else event.strength.toString(),
@@ -123,6 +123,12 @@ fun EventRow(
         Text(
             text = event.description,
             modifier = Modifier.padding(4.dp)
+                .width(150.dp)
+        )
+        Text(
+            text = event.thought,
+            modifier = Modifier.padding(4.dp)
+                .width(150.dp)
         )
     }
 

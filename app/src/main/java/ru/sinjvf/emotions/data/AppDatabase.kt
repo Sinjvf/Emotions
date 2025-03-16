@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import ru.sinjvf.emotions.data.dao.EmotionCharacteristicDao
 import ru.sinjvf.emotions.data.dao.EmotionDao
 import ru.sinjvf.emotions.data.dao.EventDao
@@ -14,7 +16,7 @@ import ru.sinjvf.emotions.data.prepopulate.PrepopulateDatabaseCallback
 
 @Database(
     entities = [EmotionCharacteristic::class, Emotion::class, Event::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -39,10 +41,18 @@ abstract class AppDatabase : RoomDatabase() {
                             { INSTANCE!!.emotionCharacteristicDao() },
                             { INSTANCE!!.emotionDao() })
                     )
+                    .addMigrations(MIGRATION_1_2)
                     .build()
                 INSTANCE = instance
                 instance
             }
         }
+    }
+}
+
+val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE events ADD COLUMN thought TEXT DEFAULT ''")
+        database.execSQL("ALTER TABLE events ADD COLUMN sensation TEXT DEFAULT ''")
     }
 }

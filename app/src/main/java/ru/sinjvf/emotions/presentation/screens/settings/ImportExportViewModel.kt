@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 import ru.sinjvf.emotions.data.dao.EmotionCharacteristicDao
 import ru.sinjvf.emotions.data.dao.EmotionDao
 import ru.sinjvf.emotions.data.dao.EventDao
-import ru.sinjvf.emotions.domain.exportEventsToFile
+import ru.sinjvf.emotions.domain.ExportPdf
+import ru.sinjvf.emotions.domain.ExportToFile
+import ru.sinjvf.emotions.domain.ExportTxt
 import ru.sinjvf.emotions.domain.importEventsFromString
 import java.io.InputStream
 import javax.inject.Inject
@@ -20,6 +22,8 @@ import javax.inject.Provider
 @HiltViewModel
 class ImportExportViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
+    private val exportPdf: ExportPdf,
+    private val exportTxt: ExportTxt,
     private val eventDao: Provider<EventDao>,
     private val emotionDao: EmotionDao,
     private val emotionCharacteristicDao: EmotionCharacteristicDao
@@ -58,14 +62,21 @@ class ImportExportViewModel @Inject constructor(
         }
     }
 
-    fun export(onComplete: (String) -> Unit) {
+    fun exportToTxt(onComplete: (String) -> Unit,){
+        export(onComplete, exportTxt)
+    }
+    fun exportToPdf(onComplete: (String) -> Unit,){
+        export(onComplete, exportPdf)
+    }
+
+    private fun export(onComplete: (String) -> Unit, export:ExportToFile) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val events = eventDao.get().getAll()
                 val emotions = emotionDao.getAll()
                 val characteristics = emotionCharacteristicDao.getAll()
 
-                val fileUri = exportEventsToFile(
+                val fileUri = export.exportEvents(
                     context = context,
                     events = events,
                     emotions = emotions,
